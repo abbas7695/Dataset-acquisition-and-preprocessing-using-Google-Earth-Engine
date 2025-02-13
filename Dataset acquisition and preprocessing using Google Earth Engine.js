@@ -1,4 +1,4 @@
-// Calculate-Spectral-Indices
+// Dataset acquisition and preprocessing using Google Earth Engine for the years 2000, 2005, 2010, 2015 and 2020
 
 // Cloud mask function for Landsat 8 & 9 (Collection 2)
 function cloudMask(image){
