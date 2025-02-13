@@ -1,7 +1,7 @@
 // Dataset acquisition and preprocessing using Google Earth Engine for the years 2000, 2005, 2010, 2015 and 2020
-Var l8: ImageCollection"USGS Landsat 8 Level 2, Collection 2, Tier 1"
-Var l8: ImageCollection"USGS Landsat 5 Level 2, Collection 2, Tier 1"
-Var roi: Table "projects/ee-scholarhasnain5/assets/Gaza-Strip"
+Var l8: ImageCollection"USGS Landsat 8 Level 2, Collection 2, Tier 1"  // Landsat 8
+Var l7: ImageCollection"USGS Landsat 7 Level 2, Collection 2, Tier 1"  // landsat 7
+Var roi: Table "projects/ee-scholarhasnain5/assets/Gaza-Strip"  // Study area
 
 // Cloud mask function for Landsat 8 & 9 (Level 2, Collection 2, Tire 1)
 function cloudMask(image){
@@ -39,7 +39,7 @@ function cloudMask(image){
 
 // Create an image composite
 var image = l8.filterBounds(roi).filterDate('2020-01-01', '2020-12-31')
-  // .merge(l5.filterBounds(roi).filterDate('2000-01-01', '2000-12-31'))
+  // .merge(l7.filterBounds(roi).filterDate('2000-01-01', '2000-12-31'))
   .map(cloudMask)
   .median()
   .clip(roi);
