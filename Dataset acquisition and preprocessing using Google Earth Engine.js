@@ -1,6 +1,6 @@
 // Dataset acquisition and preprocessing using Google Earth Engine for the years 2000, 2005, 2010, 2015 and 2020
 
-// Cloud mask function for Landsat 8 & 9 (Collection 2)
+// Cloud mask function for Landsat 8 & 9 (Level 2, Collection 2, Tire 1)
 function cloudMask(image){
   var qa = image.select('QA_PIXEL');
   var dilated = 1 << 1;
@@ -17,7 +17,7 @@ function cloudMask(image){
     .add(-0.2);
 }
 
-// // Cloud mask function for Landsat 5 & 7 (Collection 2)
+// // Cloud mask function for Landsat 5 & 7 (Level 2, Collection 2, Tire 1)
 // function cloudMask(image){
 //   var qa = image.select('QA_PIXEL');
 //   var dilated = 1 << 1;
@@ -45,7 +45,7 @@ var image = l8.filterBounds(roi).filterDate('2020-01-01', '2020-12-31')
 Map.addLayer(image, {min: [0.1, 0.05, 0.05], max: [0.4, 0.3, 0.2], bands: ['B5', 'B4', 'B3']}, 'Image');
 Map.centerObject(roi,11);
 
-// Band map for Landsat 8 & 9 (Collection 2)
+// Band map for Landsat 8 & 9 (Level 2, Collection 2, Tire 1)
 var bandMap = {
   BLUE: image.select('B2'),
   GREEN: image.select('B3'),
@@ -55,7 +55,7 @@ var bandMap = {
   SWIR2: image.select('B7')
 };
 
-// // Band map for Landsat 5 & 7 (Collection 2)
+// // Band map for Landsat 5 & 7 (Level 2, Collection 2, Tire 1)
 // var bandMap = {
 //   BLUE: image.select('B1'),
 //   GREEN: image.select('B2'),
