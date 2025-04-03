@@ -82,7 +82,7 @@ var indices = ee.Image([
 }));
 
 // Add spectral indices  to image
-image = image.addBands(indices).addBands(srtm.clip(roi));
+image = image.addBands(indices).clip(roi);
 
 // Export image
 Export.image.toDrive({
