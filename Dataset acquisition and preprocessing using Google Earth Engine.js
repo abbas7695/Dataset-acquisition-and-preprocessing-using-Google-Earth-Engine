@@ -71,11 +71,11 @@ var bandMap = {
 // Add spectral indices
 var indices = ee.Image([
   { name: 'BAEI', formula: '(RED+0.3)/(GREEN+SWIR1)'},
-  { name: 'IBI', formula: '2*SWIR1/(SWIR1+NIR) [NIR/(NIR RED)+GREEN/(GREEN+SWIR1)]/2*SWIR1/(SWIR1+NIR)+[NIR/(NIR RED)+GREEN/(GREEN+SWIR1)]'},
-  { name: 'MBAI', formula: '[NIR+(1.57*GREEN)+(2.4*SWIR1)]/(1+NIR)'},
-  { name: 'NBI', formula: '(RED SWIR1)/(NIR)'},
-  { name: 'NDBI', formula: '(SWIR1 - NIR) / (SWIR1 + NIR)'},
-  { name: 'NDBaI', formula: '(SWIR1 - SWIR2) / (SWIR1 + SWIR2)'},
+  { name: 'IBI', formula: '((2 * SWIR1 / (SWIR1 + NIR)) - ((NIR / (NIR - RED)) + (GREEN / (GREEN + SWIR1)))) / ' + '((2 * SWIR1 / (SWIR1 + NIR)) + ((NIR / (NIR - RED)) + (GREEN / (GREEN + SWIR1))))'},
+  { name: 'MBAI', formula: 'NIR+(1.57*GREEN)+(2.4*SWIR1)/(1+NIR)'},
+  { name: 'NBI', formula: '(RED-SWIR1)/(NIR)'},
+  { name: 'NDBI', formula: '(SWIR1-NIR)/(SWIR1 + NIR)'},
+  { name: 'NDBaI', formula: '(SWIR1-SWIR2)/(SWIR1+SWIR2)'},
 ].map(function(dict){
   var indexImage = image.expression(dict.formula, bandMap).rename(dict.name);
   return indexImage;
