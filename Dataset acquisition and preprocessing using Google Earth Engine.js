@@ -44,6 +44,15 @@ var image = l8.filterBounds(roi).filterDate('2020-01-01', '2020-12-31')
   .median()
   .clip(roi);
 
+// Pan sharpening
+// Convert the RGB bands to the HSV color space.
+var hsv = image.select(['SR_B.*'], ['B1', 'B2', 'B3', 'B4', 'B5','B6', 'B7']).rgbToHsv();
+
+// Swap in the panchromatic band and convert back to RGB.
+var sharpened = ee.Image.cat([
+  hsv.select('hue'), hsv.select('saturation'), image.select('B8')
+]).hsvToRgb();
+
 // Visualize
 Map.addLayer(image, {min: [0.1, 0.05, 0.05], max: [0.4, 0.3, 0.2], bands: ['B5', 'B4', 'B3']}, 'Image');
 Map.centerObject(roi,11);
@@ -87,7 +96,7 @@ image = image.addBands(indices).clip(roi);
 // Export image
 Export.image.toDrive({
   image: image.toFloat(),
-  scale: 30,
+  scale: 15,
   maxPixels: 1e13,
   region: roi,
   crs: 'EPSG:4326',
